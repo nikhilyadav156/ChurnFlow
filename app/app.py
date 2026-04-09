@@ -51,120 +51,107 @@ st.set_page_config(
 st.markdown("""
 <style>
 /* ── Global ── */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-html, body, [class*="css"] { font-family: 'Plus Jakarta Sans', sans-serif; }
-.stApp { background-color: #0B0E14; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+.stApp { background-color: #F9FAFB; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background: rgba(15, 20, 25, 0.85);
-    backdrop-filter: blur(20px);
-    border-right: 1px solid rgba(255,255,255,0.05);
+    background: #FFFFFF;
+    border-right: 1px solid #E5E7EB;
 }
-[data-testid="stSidebar"] * { color: #8C9BB4 !important; }
+[data-testid="stSidebar"] * { color: #4B5563 !important; }
 [data-testid="stSidebar"] .stRadio label { 
-    font-size: 16px; font-weight: 500; padding: 10px 12px;
-    border-radius: 8px; transition: all 0.3s ease;
+    font-size: 15px; font-weight: 500; padding: 10px 12px;
+    border-radius: 6px; transition: all 0.2s ease;
 }
 [data-testid="stSidebar"] .stRadio label:hover {
-    background: rgba(0, 242, 254, 0.1);
-    color: #ffffff !important; transform: translateX(5px);
+    background: #F3F4F6;
+    color: #111827 !important;
 }
 [data-testid="stSidebar"] .stRadio div[role="radiogroup"] > label[data-checked="true"] {
-    background: linear-gradient(90deg, rgba(0, 242, 254, 0.15) 0%, rgba(79, 172, 254, 0.05) 100%);
-    border-left: 4px solid #00F2FE; color: #ffffff !important;
+    background: #EEF2FF;
+    border-left: 3px solid #635BFF; color: #635BFF !important;
 }
 
 /* ── Metric cards ── */
 [data-testid="metric-container"] {
-    background: rgba(21, 26, 36, 0.6);
-    border: 1px solid rgba(79, 172, 254, 0.15);
-    border-radius: 16px;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
     padding: 20px 24px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(12px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
 }
 [data-testid="metric-container"]:hover {
-    transform: translateY(-6px);
-    border-color: #00F2FE;
-    box-shadow: 0 10px 30px rgba(0, 242, 254, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: #D1D5DB;
 }
-[data-testid="metric-container"] label { color: #8C9BB4 !important; font-size: 14px !important; letter-spacing: 0.5px; text-transform: uppercase; }
+[data-testid="metric-container"] label { color: #6B7280 !important; font-size: 13px !important; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600; }
 [data-testid="metric-container"] [data-testid="stMetricValue"] {
-    font-size: 36px !important; font-weight: 800 !important;
-    background: -webkit-linear-gradient(45deg, #00F2FE, #4FACFE);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    color: #111827 !important; font-size: 32px !important; font-weight: 700 !important;
 }
 
 /* ── Tabs ── */
-.stTabs [data-baseweb="tab-list"] { gap: 12px; background: transparent; }
+.stTabs [data-baseweb="tab-list"] { gap: 8px; background: transparent; }
 .stTabs [data-baseweb="tab"] {
-    background: rgba(21, 26, 36, 0.5); border-radius: 12px; color: #8C9BB4;
-    padding: 10px 24px; border: 1px solid rgba(255,255,255,0.05);
-    font-weight: 600; font-size: 15px; transition: all 0.3s ease;
+    background: #F3F4F6; border-radius: 8px; color: #6B7280;
+    padding: 8px 16px; border: 1px solid transparent;
+    font-weight: 500; font-size: 14px; transition: all 0.2s ease;
 }
 .stTabs [data-baseweb="tab"]:hover {
-    background: rgba(79, 172, 254, 0.1); color: white; border-color: rgba(79, 172, 254, 0.3);
+    background: #E5E7EB; color: #111827;
 }
 .stTabs [aria-selected="true"] {
-    background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%) !important;
-    color: white !important; border-color: transparent !important;
-    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+    background: #FFFFFF !important;
+    color: #635BFF !important; border-color: #E5E7EB !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 /* ── Buttons ── */
 .stButton > button {
-    background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
-    color: white; border: none; border-radius: 12px;
-    padding: 12px 32px; font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
-    transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
+    background: #635BFF;
+    color: white; border: none; border-radius: 8px;
+    padding: 10px 24px; font-weight: 600; font-size: 14px;
+    transition: all 0.2s ease; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 .stButton > button:hover { 
-    transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4); 
-    background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%);
+    transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(99, 91, 255, 0.4); 
+    background: #4F46E5; color: white;
 }
 
-/* ── Glass Cards ── */
+/* ── Cards ── */
 .glass-card {
-    background: rgba(21, 26, 36, 0.4);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 16px; padding: 28px; margin: 16px 0;
-    backdrop-filter: blur(16px);
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px; padding: 24px; margin: 16px 0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
-.glass-card:hover { border-color: rgba(0, 242, 254, 0.3); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.glass-card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
 
 /* ── Churn badges ── */
 .churn-yes { 
-    background: linear-gradient(135deg, #FF0844 0%, #FFB199 100%);
-    color: white; padding: 12px 32px; border-radius: 50px;
-    font-weight: 800; font-size: 20px; display: inline-block;
-    box-shadow: 0 4px 20px rgba(255, 8, 68, 0.4);
-    animation: pulse-red 2s infinite;
+    background: #FEE2E2;
+    color: #991B1B; padding: 8px 24px; border-radius: 9999px;
+    font-weight: 700; font-size: 16px; display: inline-block;
 }
 .churn-no { 
-    background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%);
-    color: white; padding: 12px 32px; border-radius: 50px;
-    font-weight: 800; font-size: 20px; display: inline-block;
-    box-shadow: 0 4px 20px rgba(0, 180, 219, 0.4);
-}
-
-@keyframes pulse-red {
-    0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(255, 8, 68, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); }
+    background: #D1FAE5;
+    color: #065F46; padding: 8px 24px; border-radius: 9999px;
+    font-weight: 700; font-size: 16px; display: inline-block;
 }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(79, 172, 254, 0.3); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0, 242, 254, 0.8); }
+::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
 
-/* ── Typography fixes ── */
-h1, h2, h3, h4 { color: #f0f4f8 !important; font-weight: 700 !important; letter-spacing: -0.5px; }
-hr { border-color: rgba(255,255,255,0.05) !important; margin: 24px 0; }
+/* ── Headings ── */
+h1, h2, h3, h4 { color: #111827 !important; font-weight: 700 !important; letter-spacing: -0.5px; }
+hr { border-color: #E5E7EB !important; margin: 24px 0; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -237,11 +224,11 @@ with st.sidebar:
         best = max(results, key=lambda k: results[k]["cv_auc_mean"])
         st.markdown(f"""
         <div style='text-align:center'>
-            <div style='font-size:12px; color:#8C9BB4; letter-spacing: 0.5px;'>🏆 BEST MODEL</div>
-            <div style='font-size:16px; font-weight:700; background: -webkit-linear-gradient(45deg, #00F2FE, #4FACFE); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>
+            <div style='font-size:12px; color:#6B7280; font-weight:600; letter-spacing: 0.5px;'>🏆 BEST MODEL</div>
+            <div style='font-size:16px; font-weight:700; color:#635BFF;'>
                 {best.replace("_"," ")}
             </div>
-            <div style='font-size:22px; font-weight:800; color:#00B4DB; margin-top:4px'>
+            <div style='font-size:22px; font-weight:800; color:#10B981; margin-top:4px'>
                 AUC {results[best]["cv_auc_mean"]:.4f}
             </div>
         </div>
@@ -279,25 +266,25 @@ if "Overview" in page:
 
     with col_diag:
         steps = [
-            ("📥", "Raw Data",       "#00F2FE"),
-            ("🧹", "Preprocessing",  "#00B4DB"),
-            ("🗄️", "Feature Store",  "#4FACFE"),
-            ("⚖️", "SMOTE Balance",  "#0083B0"),
-            ("🤖", "4 Models",       "#00F2FE"),
-            ("📊", "MLflow Autolog", "#4FACFE"),
-            ("🧠", "SHAP Reports",   "#00B4DB"),
-            ("🏭", "Model Registry", "#0083B0"),
-            ("🖥️", "Streamlit UI",   "#00F2FE"),
+            ("📥", "Raw Data",       "#6B7280"),
+            ("🧹", "Preprocessing",  "#8B5CF6"),
+            ("🗄️", "Feature Store",  "#3B82F6"),
+            ("⚖️", "SMOTE Balance",  "#10B981"),
+            ("🤖", "4 Models",       "#635BFF"),
+            ("📊", "MLflow Autolog", "#F59E0B"),
+            ("🧠", "SHAP Reports",   "#EC4899"),
+            ("🏭", "Model Registry", "#635BFF"),
+            ("🖥️", "Streamlit UI",   "#111827"),
         ]
         fig = go.Figure()
         for i, (icon, name, color) in enumerate(steps):
             fig.add_trace(go.Scatter(
                 x=[i], y=[0],
                 mode="markers+text",
-                marker=dict(size=52, color=color, line=dict(color="white", width=2)),
+                marker=dict(size=52, color=color, line=dict(color="#FFFFFF", width=2)),
                 text=[f"{icon}<br>{name}"],
                 textposition="top center",
-                textfont=dict(size=10, color="white"),
+                textfont=dict(size=10, color="#4B5563"),
             ))
             if i < len(steps) - 1:
                 fig.add_annotation(
@@ -316,7 +303,7 @@ if "Overview" in page:
     with col_stack:
         st.markdown("""
         <div class='glass-card'>
-            <b style='color:#00F2FE; font-size:16px; letter-spacing:0.5px;'>TECH STACK</b><br><br>
+            <b style='color:#635BFF; font-size:16px; letter-spacing:0.5px;'>TECH STACK</b><br><br>
             🐍 Python · Pandas · NumPy<br>
             🤖 Scikit-learn · XGBoost · LightGBM<br>
             ⚖️ imbalanced-learn (SMOTE)<br>
@@ -472,22 +459,22 @@ elif "Single Prediction" in page:
                 mode="gauge+number+delta",
                 value=prob * 100,
                 domain={"x": [0, 1], "y": [0, 1]},
-                title={"text": "Churn Risk Score", "font": {"color": "white", "size": 18}},
-                number={"suffix": "%", "font": {"color": "white", "size": 32}},
+                title={"text": "Churn Risk Score", "font": {"color": "#111827", "size": 18}},
+                number={"suffix": "%", "font": {"color": "#111827", "size": 32}},
                 gauge={
-                    "axis": {"range": [0, 100], "tickcolor": "white"},
+                    "axis": {"range": [0, 100], "tickcolor": "#111827"},
                     "bar":  {"color": "#FF0844" if prob >= 0.5 else "#00B4DB"},
                     "steps": [
                         {"range": [0, 30],  "color": "rgba(0,180,219,0.2)"},
                         {"range": [30, 60], "color": "rgba(250,208,44,0.2)"},
                         {"range": [60, 100],"color": "rgba(255,8,68,0.2)"},
                     ],
-                    "threshold": {"line": {"color": "white", "width": 3}, "value": 50}
+                    "threshold": {"line": {"color": "#991B1B", "width": 3}, "value": 50}
                 }
             ))
             fig_gauge.update_layout(
                 height=280, paper_bgcolor="rgba(0,0,0,0)",
-                font=dict(color="white"), margin=dict(t=30, b=10)
+                font=dict(color="#111827"), margin=dict(t=30, b=10)
             )
             st.plotly_chart(fig_gauge, use_container_width=True)
 
@@ -561,7 +548,7 @@ elif "Batch Prediction" in page:
                 color_discrete_map={"Low":"#00B4DB","Medium":"#FAD02C","High":"#FF0844"},
                 title="Churn Risk Distribution"
             )
-            fig_pie.update_layout(paper_bgcolor="rgba(0,0,0,0)", font=dict(color="white"))
+            fig_pie.update_layout(paper_bgcolor="rgba(0,0,0,0)", font=dict(color="#111827"))
 
             fig_hist = px.histogram(
                 df_out, x="Churn_Probability", nbins=40,
@@ -569,9 +556,9 @@ elif "Batch Prediction" in page:
                 title="Churn Probability Distribution"
             )
             fig_hist.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-                                   font=dict(color="white"))
-            fig_hist.update_xaxes(gridcolor="rgba(255,255,255,0.05)")
-            fig_hist.update_yaxes(gridcolor="rgba(255,255,255,0.05)")
+                                   font=dict(color="#111827"))
+            fig_hist.update_xaxes(gridcolor="#E5E7EB")
+            fig_hist.update_yaxes(gridcolor="#E5E7EB")
 
             pc, ph = st.columns(2)
             pc.plotly_chart(fig_pie,  use_container_width=True)
@@ -644,16 +631,16 @@ elif "Model Comparison" in page:
 
         fig.update_layout(
             polar=dict(
-                radialaxis=dict(visible=True, range=[0.5, 1.0], gridcolor="rgba(255,255,255,0.1)",
-                                tickfont=dict(color="white"), tickcolor="white"),
-                angularaxis=dict(gridcolor="rgba(255,255,255,0.1)",
-                                 tickfont=dict(color="white"))
+                radialaxis=dict(visible=True, range=[0.5, 1.0], gridcolor="#E5E7EB",
+                                tickfont=dict(color="#111827"), tickcolor="#111827"),
+                angularaxis=dict(gridcolor="#E5E7EB",
+                                 tickfont=dict(color="#111827"))
             ),
             showlegend=True,
-            legend=dict(font=dict(color="white")),
+            legend=dict(font=dict(color="#111827")),
             paper_bgcolor="rgba(0,0,0,0)",
             height=480,
-            font=dict(color="white")
+            font=dict(color="#111827")
         )
         st.plotly_chart(fig, use_container_width=True)
 
@@ -663,14 +650,14 @@ elif "Model Comparison" in page:
         fig_eb.add_trace(go.Bar(
             x=df_r["Model"], y=df_r["CV AUC"],
             error_y=dict(type="data", array=df_r["AUC Std"].tolist(), visible=True,
-                         color="white", thickness=2, width=8),
+                         color="#111827", thickness=2, width=8),
             marker_color=colors[:len(df_r)],
             text=df_r["CV AUC"].round(4), textposition="outside",
-            textfont=dict(color="white")
+            textfont=dict(color="#111827")
         ))
         fig_eb.update_layout(
             height=380, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-            font=dict(color="white"), yaxis=dict(range=[0.6, 1.0], gridcolor="rgba(255,255,255,0.05)"),
+            font=dict(color="#111827"), yaxis=dict(range=[0.6, 1.0], gridcolor="#E5E7EB"),
             margin=dict(t=30)
         )
         st.plotly_chart(fig_eb, use_container_width=True)
@@ -727,9 +714,9 @@ elif "SHAP" in page:
                 )
                 fig_shap.update_layout(
                     height=550, paper_bgcolor="rgba(0,0,0,0)",
-                    plot_bgcolor="rgba(0,0,0,0)", font=dict(color="white"),
+                    plot_bgcolor="rgba(0,0,0,0)", font=dict(color="#111827"),
                     yaxis=dict(autorange="reversed"), coloraxis_showscale=False,
-                    xaxis=dict(gridcolor="rgba(255,255,255,0.05)"),
+                    xaxis=dict(gridcolor="#E5E7EB"),
                 )
                 st.plotly_chart(fig_shap, use_container_width=True)
 
