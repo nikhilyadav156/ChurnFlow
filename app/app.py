@@ -45,7 +45,7 @@ RES_JSON  = ART_DIR  / "results.json"
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="ChurnFlow · ML Dashboard",
-    page_icon="🔮",
+    page_icon="🔄",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -56,7 +56,7 @@ st.markdown("""
 /* ── Global ── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
-.stApp { background-color: #F9FAFB; }
+.stApp { background-color: #72A0C1; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
@@ -171,6 +171,10 @@ hr { border-color: #E5E7EB !important; margin: 24px 0; }
 [data-testid="metric-container"]:nth-child(5) { animation-delay: 0.5s; }
 html { scroll-behavior: smooth; }
 </style>
+
+<!-- Fullscreen Spline Background -->
+<iframe src="https://my.spline.design/particles-9dc55d64821815db976fc93175c5e888/" style="position: fixed; inset: 0; width: 100vw; height: 100vh; border: none; z-index: -99; opacity: 0.6; pointer-events: auto;"></iframe>
+
 """, unsafe_allow_html=True)
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -362,36 +366,45 @@ if "Overview" in page:
 
     with col_diag:
         steps = [
-            ("📥", "Raw Data",       "#6B7280"),
-            ("🧹", "Preprocessing",  "#8B5CF6"),
-            ("🗄️", "Feature Store",  "#3B82F6"),
-            ("⚖️", "SMOTE Balance",  "#10B981"),
-            ("🤖", "4 Models",       "#635BFF"),
-            ("📊", "MLflow Autolog", "#F59E0B"),
-            ("🧠", "SHAP Reports",   "#EC4899"),
-            ("🏭", "Model Registry", "#635BFF"),
-            ("🖥️", "Streamlit UI",   "#111827"),
+            ("📥", "Data",       "#6B7280", 0, 1),
+            ("🧹", "Preprocess", "#8B5CF6", 1, 1),
+            ("🗄️", "Features",   "#3B82F6", 2, 1),
+            ("⚖️", "SMOTE",      "#10B981", 3, 1),
+            ("🤖", "Models",     "#635BFF", 4, 1),
+            ("📊", "Autolog",    "#F59E0B", 4, 0),
+            ("🧠", "SHAP",       "#EC4899", 3, 0),
+            ("🏭", "Registry",   "#635BFF", 2, 0),
+            ("🖥️", "UI",         "#111827", 1, 0),
         ]
         fig = go.Figure()
-        for i, (icon, name, color) in enumerate(steps):
+        for i, (icon, name, color, x, y) in enumerate(steps):
             fig.add_trace(go.Scatter(
-                x=[i], y=[0],
+                x=[x], y=[y],
                 mode="markers+text",
-                marker=dict(size=52, color=color, line=dict(color="#FFFFFF", width=2)),
+                marker=dict(size=45, color=color, symbol="square", line=dict(color="#FFFFFF", width=2)),
                 text=[f"{icon}<br>{name}"],
-                textposition="top center",
-                textfont=dict(size=10, color="#4B5563"),
+                textposition="top center" if y == 1 else "bottom center",
+                textfont=dict(size=11, color="#111827", weight="bold"),
             ))
+            # Draw arrows to next step
             if i < len(steps) - 1:
+                nx, ny = steps[i+1][3], steps[i+1][4]
+                # Arrow style based on direction
+                arrow = "→" if nx > x else "←" if nx < x else "↓"
+                # Midpoint for arrow
+                ax, ay = (x + nx) / 2, (y + ny) / 2
+                if nx == x: # It's the drop-down arrow
+                   ax += 0.1 
                 fig.add_annotation(
-                    x=i+0.5, y=0, text="→", showarrow=False,
-                    font=dict(size=22, color="#888"), xanchor="center"
+                    x=ax, y=ay, text=arrow, showarrow=False,
+                    font=dict(size=22, color="#6B7280"), xanchor="center"
                 )
+                
         fig.update_layout(
-            height=160, margin=dict(l=20, r=20, t=50, b=10),
+            height=280, margin=dict(l=20, r=20, t=30, b=30),
             paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-            xaxis=dict(showgrid=False, showticklabels=False, zeroline=False),
-            yaxis=dict(showgrid=False, showticklabels=False, zeroline=False, range=[-0.5, 0.8]),
+            xaxis=dict(showgrid=False, showticklabels=False, zeroline=False, range=[-0.5, 4.5]),
+            yaxis=dict(showgrid=False, showticklabels=False, zeroline=False, range=[-0.5, 1.5]),
             showlegend=False,
         )
         st.plotly_chart(fig, use_container_width=True)
@@ -415,20 +428,20 @@ if "Overview" in page:
         st.markdown("### 📊 Quick Model Comparison")
         df_r = results_dataframe(results)
         fig2 = make_subplots(rows=1, cols=3, subplot_titles=["AUC-ROC", "F1 Score", "Accuracy"])
-        colors = ["#00F2FE", "#4FACFE", "#00B4DB", "#0083B0"]
+        colors = ["#635BFF", "#10B981", "#8B5CF6", "#3B82F6"]
         for i, metric in enumerate(["CV AUC", "CV F1", "CV Accuracy"]):
             fig2.add_trace(go.Bar(
                 x=df_r["Model"], y=df_r[metric],
                 marker_color=colors, showlegend=False,
                 text=df_r[metric].round(3), textposition="outside",
-                textfont=dict(color="white", size=11)
+                textfont=dict(color="#111827", size=11)
             ), row=1, col=i+1)
         fig2.update_layout(
             height=350, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-            font=dict(color="white"), margin=dict(t=40, b=10),
+            font=dict(color="#111827"), margin=dict(t=40, b=10),
         )
-        fig2.update_xaxes(tickangle=-20, tickfont=dict(size=10))
-        fig2.update_yaxes(gridcolor="rgba(255,255,255,0.05)", range=[0.5, 1.0])
+        fig2.update_xaxes(tickangle=-20, tickfont=dict(size=10, color="#111827"))
+        fig2.update_yaxes(gridcolor="#E5E7EB", range=[0.5, 1.0], tickfont=dict(color="#111827"))
         st.plotly_chart(fig2, use_container_width=True)
 
 
