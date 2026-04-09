@@ -111,10 +111,12 @@ html, body { background: var(--bg) !important; color: var(--txt); }
   mask-image: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%);
 }
 #spline {
-  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:1.0;
+  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.85;
+  mix-blend-mode: screen;
 }
 #spline iframe {
   width:100%; height:100%; border:none;
+  filter: invert(1) hue-rotate(180deg) contrast(1.2);
 }
 
 /* Nav */
