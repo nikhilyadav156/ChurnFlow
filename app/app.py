@@ -149,7 +149,7 @@ html, body { background: var(--bg) !important; color: var(--txt); }
 #hero {
   min-height:100vh; display:flex; flex-direction:column;
   justify-content:center; align-items:flex-start;
-  padding: 120px 60px 60px;
+  padding: 60px 60px 60px;
 }
 .h-eye {
   font-family: var(--fm); font-size:11px; color: var(--a2);
@@ -242,9 +242,9 @@ html, body { background: var(--bg) !important; color: var(--txt); }
   background:linear-gradient(90deg, var(--a1), var(--a2));
   transform:scaleX(0); transition:transform 0.32s; transform-origin:left;
 }
-.mc:hover, .mc.best { border-color:rgba(110,86,255,0.32); }
+.mc:hover { border-color:var(--a1); transform:translateY(-6px); box-shadow: 0 14px 34px rgba(0,0,0,0.06); }
+.mc.best { border-color:rgba(110,86,255,0.32); background:rgba(110,86,255,0.055); }
 .mc:hover::after, .mc.best::after { transform:scaleX(1); }
-.mc.best { background:rgba(110,86,255,0.055); }
 .mb {
   font-family: var(--fm); font-size:9px; letter-spacing:1.2px; text-transform:uppercase;
   padding:3px 9px; border-radius:3px; display:inline-block; margin-bottom:12px;
@@ -283,13 +283,15 @@ html, body { background: var(--bg) !important; color: var(--txt); }
 
 /* Streamlit widget overrides */
 [data-testid="stSelectbox"] > div > div,
-[data-testid="stNumberInput"] > div > div > input {
+[data-testid="stNumberInput"] > div > div > input,
+div[data-baseweb="select"] > div {
   background: #ffffff !important;
   border: 1px solid var(--bord) !important;
   border-radius: 6px !important;
   color: var(--txt) !important;
   font-family: var(--fm) !important;
   font-size: 12px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important;
 }
 label[data-testid="stWidgetLabel"] p {
   font-family: var(--fm) !important; font-size:10px !important;
@@ -620,9 +622,7 @@ if results:
             ),
             height=440, margin=dict(t=10, b=10)
         )
-        st.markdown('<div class="gl rv">', unsafe_allow_html=True)
         st.plotly_chart(fig_r, use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
 
     with c2:
         names  = [mn.replace("_", " ") for mn in order]
@@ -639,9 +639,7 @@ if results:
         fig_b = light_fig(fig_b, 420)
         fig_b.update_xaxes(range=[0.80, 0.87])
         fig_b.update_yaxes(autorange="reversed")
-        st.markdown('<div class="gl rv">', unsafe_allow_html=True)
         st.plotly_chart(fig_b, use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -807,9 +805,7 @@ else:
     with t1:
         img = SHAP_DIR / f"shap_summary_{mk}.png"
         if img.exists():
-            st.markdown('<div class="gl rv">', unsafe_allow_html=True)
             st.image(str(img), use_column_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
 
     with t2:
         csv_p = SHAP_DIR / f"shap_values_{mk}.csv"
@@ -828,16 +824,12 @@ else:
                 textfont=dict(size=9, color="rgba(15,23,42,0.6)", family="DM Mono")
             ))
             fig_s = light_fig(fig_s, 560)
-            st.markdown('<div class="gl rv">', unsafe_allow_html=True)
             st.plotly_chart(fig_s, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
 
     with t3:
         wf = SHAP_DIR / f"shap_waterfall_{mk}.png"
         if wf.exists():
-            st.markdown('<div class="gl rv">', unsafe_allow_html=True)
             st.image(str(wf), use_column_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.info("Waterfall not generated for this model.")
 
@@ -848,18 +840,10 @@ st.markdown('</div>', unsafe_allow_html=True)
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div style="border-top:1px solid var(--bord);
-  padding:36px 60px; display:flex; justify-content:space-between; align-items:center">
-  <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;
-    color: var(--txt);">
-    &#x2B21; ChurnFlow
-  </div>
-  <div style="font-family:'DM Mono',monospace;font-size:10px;
-    color:rgba(15,23,42,0.4);letter-spacing:1.2px">
-    BUILT BY NIKHIL YADAV &middot; BIT DURG &middot; CSE DATA SCIENCE
-  </div>
-  <div style="font-family:'DM Mono',monospace;font-size:10px;
-    color:rgba(15,23,42,0.4);letter-spacing:1px">
-    MLflow 2.12.1 &middot; SHAP 0.45 &middot; Streamlit 1.33
+  padding:36px 60px; display:flex; justify-content:center; align-items:center">
+  <div style="font-family:'DM Mono',monospace;font-size:12px;
+    color:rgba(15,23,42,0.6);letter-spacing:1px">
+    Built by Nikhil with love ❤️
   </div>
 </div>
 </div>
