@@ -282,12 +282,75 @@ if "Overview" in page:
     if results:
         df_r = results_dataframe(results)
         best_row = df_r.iloc[0]
-        c1, c2, c3, c4, c5 = st.columns(5)
-        c1.metric("🏆 Best Model",   best_row["Model"])
-        c2.metric("📊 Best AUC",     f"{best_row['CV AUC']:.4f}")
-        c3.metric("🎯 Best F1",      f"{best_row['CV F1']:.4f}")
-        c4.metric("✅ Best Acc",     f"{best_row['CV Accuracy']:.4f}")
-        c5.metric("🔁 Models Trained", len(results))
+        # Serialization for React + GSAP
+        react_data = json.dumps({
+            "model": best_row["Model"],
+            "auc": f"{best_row['CV AUC']:.4f}",
+            "f1": f"{best_row['CV F1']:.4f}",
+            "acc": f"{best_row['CV Accuracy']:.4f}",
+            "trained": len(results)
+        })
+
+        html_code = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+            <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+            <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+                body {{ font-family: 'Inter', sans-serif; margin: 0; padding: 10px 0; background: transparent; }}
+                .kpi-container {{ display: flex; gap: 16px; justify-content: space-between; overflow: hidden; height: 120px; }}
+                .kpi-card {{
+                    background: #FFFFFF;
+                    border: 1px solid #E5E7EB;
+                    border-radius: 12px;
+                    padding: 20px;
+                    width: 100%;
+                    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+                    opacity: 0;
+                    transform: translateY(30px);
+                }}
+                .kpi-title {{ color: #6B7280; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }}
+                .kpi-value {{ color: #111827; font-size: 28px; font-weight: 700; }}
+            </style>
+        </head>
+        <body>
+            <div id="react-root"></div>
+            <script type="text/babel">
+                const data = {react_data};
+                
+                function KpiDashboard() {{
+                    React.useEffect(() => {{
+                        gsap.to(".kpi-card", {{
+                            y: 0,
+                            opacity: 1,
+                            duration: 0.8,
+                            stagger: 0.1,
+                            ease: "back.out(1.7)"
+                        }});
+                    }}, []);
+
+                    return (
+                        <div className="kpi-container">
+                            <div className="kpi-card"><div className="kpi-title">🏆 Best Model</div><div className="kpi-value">{{data.model}}</div></div>
+                            <div className="kpi-card"><div className="kpi-title">📊 Best AUC</div><div className="kpi-value">{{data.auc}}</div></div>
+                            <div className="kpi-card"><div className="kpi-title">🎯 Best F1</div><div className="kpi-value">{{data.f1}}</div></div>
+                            <div className="kpi-card"><div className="kpi-title">✅ Best Acc</div><div className="kpi-value">{{data.acc}}</div></div>
+                            <div className="kpi-card"><div className="kpi-title">🔁 Trained</div><div className="kpi-value">{{data.trained}}</div></div>
+                        </div>
+                    );
+                }}
+
+                const root = ReactDOM.createRoot(document.getElementById('react-root'));
+                root.render(<KpiDashboard />);
+            </script>
+        </body>
+        </html>
+        """
+        components.html(html_code, height=140)
     else:
         st.info("⚠️  No training results found. Run `python src/train.py` to populate this dashboard.")
 
