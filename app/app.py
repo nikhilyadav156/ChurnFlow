@@ -100,13 +100,21 @@ html, body { background: var(--bg) !important; color: var(--txt); }
     var(--bg);
 }
 
-/* Spline 3D background */
+/* Dynamic Background Elements */
+#grid-bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-size: 60px 60px;
+  background-image: 
+    linear-gradient(to right, rgba(110,86,255,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(110,86,255,0.06) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%);
+  mask-image: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%);
+}
 #spline {
-  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.42;
+  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:1.0;
 }
 #spline iframe {
   width:100%; height:100%; border:none;
-  filter: hue-rotate(20deg) saturate(0.75) brightness(0.88);
 }
 
 /* Nav */
@@ -331,9 +339,10 @@ st.markdown("""
 <div id="grain"></div>
 <div id="amb"></div>
 
+<div id="grid-bg"></div>
 <div id="spline">
   <iframe
-    src="https://my.spline.design/interactiveai-mcalKaDv3MXFynmF2gLFnqUt/"
+    src="https://my.spline.design/particles-9dc55d64821815db976fc93175c5e888/"
     frameborder="0" width="100%" height="100%" loading="lazy">
   </iframe>
 </div>
