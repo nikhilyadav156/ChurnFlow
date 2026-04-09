@@ -348,81 +348,99 @@ st.markdown("""
   </ul>
   <div class="nav-pill">LIVE &middot; v2.0</div>
 </nav>
+""", unsafe_allow_html=True)
 
+st.components.v1.html("""
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (function(){
-  gsap.registerPlugin(ScrollTrigger);
+  const doc = window.parent.document;
+  
+  function initAnims() {
+    if (typeof gsap === 'undefined') {
+        setTimeout(initAnims, 50);
+        return;
+    }
+    
+    // Lift veil
+    const veil = doc.querySelector('#veil');
+    if (veil) {
+        gsap.to(veil, {
+          opacity:0, duration:1.1, ease:'power3.inOut',
+          onComplete: () => { veil.style.display='none'; }
+        });
+    }
 
-  // Lift veil
-  gsap.to('#veil', {
-    opacity:0, duration:1.1, ease:'power3.inOut',
-    onComplete: function(){ document.getElementById('veil').style.display='none'; }
-  });
+    // Nav drop
+    const nav = doc.querySelector('#nav');
+    if (nav) {
+        gsap.fromTo(nav, { y:-70, opacity:0 }, { y:0, opacity:1, duration:0.9, delay:0.7, ease:'power3.out' });
+    }
 
-  // Nav drop
-  gsap.from('#nav', { y:-70, opacity:0, duration:0.9, delay:0.7, ease:'power3.out' });
+    // Cursor
+    var dot  = doc.getElementById('cdot');
+    var ring = doc.getElementById('cring');
+    doc.addEventListener('mousemove', function(e){
+      if(dot) gsap.to(dot,  { x:e.clientX, y:e.clientY, duration:0.08 });
+      if(ring) gsap.to(ring, { x:e.clientX, y:e.clientY, duration:0.22, ease:'power2.out' });
+    });
+    doc.addEventListener('mousedown', function(){ if(ring) gsap.to(ring,{scale:0.7,duration:0.15}); });
+    doc.addEventListener('mouseup',   function(){ if(ring) gsap.to(ring,{scale:1.0,duration:0.25}); });
 
-  // Cursor
-  var dot  = document.getElementById('cdot');
-  var ring = document.getElementById('cring');
-  document.addEventListener('mousemove', function(e){
-    gsap.to(dot,  { x:e.clientX, y:e.clientY, duration:0.08 });
-    gsap.to(ring, { x:e.clientX, y:e.clientY, duration:0.22, ease:'power2.out' });
-  });
-  document.addEventListener('mousedown', function(){ gsap.to(ring,{scale:0.7,duration:0.15}); });
-  document.addEventListener('mouseup',   function(){ gsap.to(ring,{scale:1.0,duration:0.25}); });
+    // Hero stagger
+    var tl = gsap.timeline({ delay:1.0 });
+    function s(q) { return doc.querySelectorAll(q); }
+    if(s('.h-eye').length) {
+      tl.to(s('.h-eye'), { opacity:1, y:0, duration:0.7,  ease:'power3.out' })
+        .to(s('.h-t1'),  { opacity:1, y:0, duration:0.85, ease:'power3.out' }, '-=0.3')
+        .to(s('.h-t2'),  { opacity:1, y:0, duration:0.85, ease:'power3.out' }, '-=0.55')
+        .to(s('.h-sub'), { opacity:1, y:0, duration:0.8,  ease:'power3.out' }, '-=0.45')
+        .to(s('.cta-row'),{ opacity:1, y:0, duration:0.7, ease:'power3.out' }, '-=0.4');
+    }
 
-  // Hero stagger
-  var tl = gsap.timeline({ delay:1.0 });
-  tl.to('.h-eye', { opacity:1, y:0, duration:0.7,  ease:'power3.out' })
-    .to('.h-t1',  { opacity:1, y:0, duration:0.85, ease:'power3.out' }, '-=0.3')
-    .to('.h-t2',  { opacity:1, y:0, duration:0.85, ease:'power3.out' }, '-=0.55')
-    .to('.h-sub', { opacity:1, y:0, duration:0.8,  ease:'power3.out' }, '-=0.45')
-    .to('.cta-row',{ opacity:1, y:0, duration:0.7, ease:'power3.out' }, '-=0.4');
+    // Counters
+    setTimeout(function(){
+      doc.querySelectorAll('[data-count]').forEach(function(el){
+        var target = parseFloat(el.getAttribute('data-count'));
+        var dec    = parseInt(el.getAttribute('data-dec') || '4');
+        var v = 0; var step = target / 90;
+        (function tick(){
+          v = Math.min(v + step, target);
+          el.textContent = v.toFixed(dec);
+          if(v < target) requestAnimationFrame(tick);
+        })();
+      });
+    }, 1500);
 
-  // Counters
-  function runCounters(){
-    document.querySelectorAll('[data-count]').forEach(function(el){
-      var target = parseFloat(el.getAttribute('data-count'));
-      var dec    = parseInt(el.getAttribute('data-dec') || '4');
-      var v = 0; var step = target / 90;
-      (function tick(){
-        v = Math.min(v + step, target);
-        el.textContent = v.toFixed(dec);
-        if(v < target) requestAnimationFrame(tick);
-      })();
+    // Scroll reveals
+    setTimeout(function(){
+      doc.querySelectorAll('.rv').forEach(function(el, i){
+        gsap.fromTo(el, { opacity:0, y:44 }, {
+          opacity:1, y:0, duration:0.85, ease:'power3.out', delay: i*0.04
+        });
+      });
+    }, 900);
+
+    // Model bar animations
+    setTimeout(function(){
+      doc.querySelectorAll('.mbar[data-w]').forEach(function(el){
+        el.style.width = el.getAttribute('data-w');
+      });
+    }, 1800);
+
+    // Ambient mouse parallax
+    doc.addEventListener('mousemove', function(e){
+      var xp = (e.clientX / window.innerWidth  - 0.5) * 14;
+      var yp = (e.clientY / window.innerHeight - 0.5) * 10;
+      let amb = doc.querySelector('#amb');
+      if(amb) gsap.to(amb, { x:xp, y:yp, duration:2.5, ease:'power1.out' });
     });
   }
-  setTimeout(runCounters, 1500);
-
-  // Scroll reveals
-  setTimeout(function(){
-    gsap.utils.toArray('.rv').forEach(function(el, i){
-      gsap.fromTo(el, { opacity:0, y:44 }, {
-        opacity:1, y:0, duration:0.85, ease:'power3.out', delay: i*0.07,
-        scrollTrigger:{ trigger:el, start:'top 90%' }
-      });
-    });
-  }, 900);
-
-  // Model bar animations
-  setTimeout(function(){
-    document.querySelectorAll('.mbar[data-w]').forEach(function(el){
-      el.style.width = el.getAttribute('data-w');
-    });
-  }, 1800);
-
-  // Ambient mouse parallax
-  document.addEventListener('mousemove', function(e){
-    var xp = (e.clientX / window.innerWidth  - 0.5) * 14;
-    var yp = (e.clientY / window.innerHeight - 0.5) * 10;
-    gsap.to('#amb', { x:xp, y:yp, duration:2.5, ease:'power1.out' });
-  });
+  
+  initAnims();
 })();
 </script>
-""", unsafe_allow_html=True)
+""", height=0)
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  Helpers
