@@ -603,7 +603,7 @@ if results:
                     visible=True, range=[0.5, 1.0],
                     gridcolor="rgba(255,255,255,0.055)",
                     tickfont=dict(size=9, color="rgba(238,238,245,0.4)"),
-                    tickcolor="transparent"
+                    tickcolor="rgba(0,0,0,0)"
                 ),
                 angularaxis=dict(
                     gridcolor="rgba(255,255,255,0.055)",
