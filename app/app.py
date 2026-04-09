@@ -173,19 +173,19 @@ html, body { background: var(--bg) !important; color: var(--txt); }
 }
 .cta-row { display:flex; gap:14px; flex-wrap:wrap; }
 .btn-p {
-  display:inline-flex; align-items:center; gap:8px; padding:13px 30px;
-  border-radius:3px; background: var(--a1); color:#fff;
-  font-family: var(--fd); font-weight:700; font-size:13px; letter-spacing:0.4px;
-  border:none; cursor:pointer; text-decoration:none; transition:all 0.3s;
+  display:inline-flex !important; align-items:center !important; gap:8px !important; padding:13px 30px !important;
+  border-radius:3px !important; background: var(--a1) !important; color:#ffffff !important;
+  font-family: var(--fd) !important; font-weight:700 !important; font-size:13px !important; letter-spacing:0.4px !important;
+  border:none !important; cursor:pointer !important; text-decoration:none !important; transition:all 0.3s !important;
 }
-.btn-p:hover { transform:translateY(-2px); box-shadow:0 14px 44px rgba(110,86,255,0.42); }
+.btn-p:hover { transform:translateY(-2px) !important; box-shadow:0 14px 44px rgba(110,86,255,0.42) !important; text-decoration:none !important; color:#ffffff !important; }
 .btn-g {
-  display:inline-flex; align-items:center; gap:8px; padding:13px 30px;
-  border-radius:3px; background:transparent; color: var(--txt);
-  font-family: var(--fd); font-weight:600; font-size:13px;
-  cursor:pointer; border:1px solid var(--bord); text-decoration:none; transition:all 0.3s;
+  display:inline-flex !important; align-items:center !important; gap:8px !important; padding:13px 30px !important;
+  border-radius:3px !important; background:transparent !important; color: var(--txt) !important;
+  font-family: var(--fd) !important; font-weight:600 !important; font-size:13px !important;
+  cursor:pointer !important; border:1px solid var(--bord) !important; text-decoration:none !important; transition:all 0.3s !important;
 }
-.btn-g:hover { border-color:rgba(255,255,255,0.22); background: var(--surf); }
+.btn-g:hover { border-color:rgba(0,0,0,0.15) !important; background: var(--surf) !important; text-decoration:none !important; color: var(--txt) !important; }
 
 /* KPI strip */
 #kpi {
@@ -251,7 +251,7 @@ html, body { background: var(--bg) !important; color: var(--txt); }
 }
 .mb.ch { background:rgba(110,86,255,0.18); color: var(--a1); }
 .mb.fn { background:rgba(0,245,212,0.10); color: var(--a2); }
-.mn  { font-family: var(--fd); font-size:17px; font-weight:700; margin-bottom:14px; letter-spacing:-0.3px; }
+.mn  { font-family: var(--fd); font-size:17px; font-weight:700; margin-bottom:14px; letter-spacing:-0.3px; color: var(--txt); }
 .mm  { display:flex; justify-content:space-between; margin-bottom:7px; }
 .mml { font-family: var(--fm); font-size:10px; color: var(--muted); }
 .mmv { font-family: var(--fm); font-size:12px; color: var(--txt); }
