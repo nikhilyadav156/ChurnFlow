@@ -56,16 +56,16 @@ st.markdown("""
 /* ── Global ── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
-.stApp { background-color: #0b0f19; }
+.stApp { background-color: #72A0C1; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background: rgba(255, 255, 255, 0.03) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
-[data-testid="stSidebar"] * { color: #D1D5DB !important; }
+[data-testid="stSidebar"] * { color: #4B5563 !important; }
 [data-testid="stSidebar"] .stRadio label { 
     font-size: 15px; font-weight: 500; padding: 10px 12px;
     border-radius: 6px; transition: all 0.2s ease;
@@ -81,13 +81,13 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
 /* ── Metric cards ── */
 [data-testid="metric-container"] {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px;
     padding: 20px 24px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 [data-testid="metric-container"]:hover {
@@ -95,9 +95,9 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     border-color: #D1D5DB;
 }
-[data-testid="metric-container"] label { color: #9CA3AF !important; font-size: 13px !important; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600; }
+[data-testid="metric-container"] label { color: #6B7280 !important; font-size: 13px !important; letter-spacing: 0.5px; text-transform: uppercase; font-weight: 600; }
 [data-testid="metric-container"] [data-testid="stMetricValue"] {
-    color: #FFFFFF !important; font-size: 32px !important; font-weight: 700 !important;
+    color: #111827 !important; font-size: 32px !important; font-weight: 700 !important;
 }
 
 /* ── Tabs ── */
@@ -130,12 +130,12 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
 /* ── Cards ── */
 .glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px; padding: 24px; margin: 16px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 .glass-card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
@@ -307,7 +307,7 @@ if "Overview" in page:
                 body {{ font-family: 'Inter', sans-serif; margin: 0; padding: 10px 0; background: transparent; }}
                 .kpi-container {{ display: flex; gap: 16px; justify-content: space-between; overflow: hidden; height: 120px; }}
                 .kpi-card {{
-                    background: rgba(255, 255, 255, 0.15);
+                    background: rgba(255, 255, 255, 0.8);
                     backdrop-filter: blur(20px);
                     -webkit-backdrop-filter: blur(20px);
                     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -385,7 +385,7 @@ if "Overview" in page:
                 marker=dict(size=45, color=color, symbol="square", line=dict(color="#FFFFFF", width=2)),
                 text=[f"<b>{icon}<br>{name}</b>"],
                 textposition="top center" if y == 1 else "bottom center",
-                textfont=dict(size=11, color="#F3F4F6"),
+                textfont=dict(size=11, color="#111827"),
             ))
             # Draw arrows to next step
             if i < len(steps) - 1:
@@ -435,14 +435,14 @@ if "Overview" in page:
                 x=df_r["Model"], y=df_r[metric],
                 marker_color=colors, showlegend=False,
                 text=df_r[metric].round(3), textposition="outside",
-                textfont=dict(color="#F3F4F6", size=11)
+                textfont=dict(color="#111827", size=11)
             ), row=1, col=i+1)
         fig2.update_layout(
             height=350, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-            font=dict(color="#F3F4F6"), margin=dict(t=40, b=10),
+            font=dict(color="#111827"), margin=dict(t=40, b=10),
         )
-        fig2.update_xaxes(tickangle=-20, tickfont=dict(size=10, color="#F3F4F6"))
-        fig2.update_yaxes(gridcolor="#374151", range=[0.5, 1.0], tickfont=dict(color="#F3F4F6"))
+        fig2.update_xaxes(tickangle=-20, tickfont=dict(size=10, color="#111827"))
+        fig2.update_yaxes(gridcolor="#E5E7EB", range=[0.5, 1.0], tickfont=dict(color="#111827"))
         st.plotly_chart(fig2, use_container_width=True)
 
 
