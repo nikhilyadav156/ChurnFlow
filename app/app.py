@@ -37,16 +37,16 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;500;700;900&display=swap');
 
 :root {
-  --bg:     #04040a;
-  --bg2:    #080812;
-  --surf:   rgba(255,255,255,0.025);
-  --bord:   rgba(255,255,255,0.065);
-  --a1:     #6e56ff;
-  --a2:     #00f5d4;
-  --a3:     #ff5f57;
-  --a4:     #ffbe0b;
-  --txt:    #eeeef5;
-  --muted:  rgba(238,238,245,0.42);
+  --bg:     #f8f9fc;
+  --bg2:    #ffffff;
+  --surf:   rgba(0,0,0,0.02);
+  --bord:   rgba(0,0,0,0.08);
+  --a1:     #72A0C1;
+  --a2:     #0ea5e9;
+  --a3:     #ef4444;
+  --a4:     #eab308;
+  --txt:    #0f172a;
+  --muted:  rgba(15,23,42,0.55);
   --fd:     'Syne', sans-serif;
   --fm:     'DM Mono', monospace;
   --fb:     'Outfit', sans-serif;
@@ -105,31 +105,29 @@ html, body { background: var(--bg) !important; color: var(--txt); }
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-size: 60px 60px;
   background-image: 
-    linear-gradient(to right, rgba(110,86,255,0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(110,86,255,0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
   -webkit-mask-image: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%);
   mask-image: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 80%);
 }
 #spline {
-  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.85;
-  mix-blend-mode: screen;
+  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.6;
+  mix-blend-mode: multiply;
 }
 #spline iframe {
   width:100%; height:100%; border:none;
-  filter: invert(1) hue-rotate(180deg) contrast(1.2);
 }
 
 /* Nav */
 #nav {
   position:fixed; top:0; left:0; right:0; z-index:1000; height:62px;
   display:flex; align-items:center; justify-content:space-between; padding:0 48px;
-  background: rgba(4,4,10,0.72); backdrop-filter: blur(28px);
+  background: rgba(255,255,255,0.72); backdrop-filter: blur(28px);
   border-bottom: 1px solid var(--bord);
 }
 .nav-logo {
   font-family: var(--fd); font-size:19px; font-weight:800; letter-spacing:-0.5px;
-  background: linear-gradient(135deg, var(--a1), var(--a2));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  color: var(--txt);
 }
 .nav-links { display:flex; gap:28px; list-style:none; }
 .nav-links a {
@@ -137,7 +135,7 @@ html, body { background: var(--bg) !important; color: var(--txt); }
   text-decoration:none; letter-spacing:0.8px; text-transform:uppercase;
   transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--txt); }
+.nav-links a:hover { color: var(--a1); }
 .nav-pill {
   font-family: var(--fm); font-size:10px; color: var(--a2);
   border:1px solid rgba(0,245,212,0.4); padding:4px 12px; border-radius:20px;
@@ -157,27 +155,23 @@ html, body { background: var(--bg) !important; color: var(--txt); }
   font-family: var(--fm); font-size:11px; color: var(--a2);
   letter-spacing:3.5px; text-transform:uppercase; margin-bottom:22px;
   display:flex; align-items:center; gap:14px;
-  opacity:0; transform:translateY(10px);
 }
 .h-eye::before { content:''; display:block; width:28px; height:1px; background: var(--a2); }
 .h-t1 {
   font-family: var(--fd); font-size: clamp(56px,8vw,104px); font-weight:800;
   line-height:0.96; letter-spacing:-4px; color: var(--txt); display:block;
-  opacity:0; transform:translateY(30px);
 }
 .h-t2 {
   font-family: var(--fd); font-size: clamp(56px,8vw,104px); font-weight:800;
   line-height:0.96; letter-spacing:-4px; display:block;
   background: linear-gradient(135deg, var(--a1) 20%, var(--a2) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  opacity:0; transform:translateY(30px);
 }
 .h-sub {
   font-family: var(--fb); font-size:17px; color: var(--muted);
   max-width:480px; line-height:1.75; margin:28px 0 44px; font-weight:300;
-  opacity:0; transform:translateY(20px);
 }
-.cta-row { display:flex; gap:14px; flex-wrap:wrap; opacity:0; transform:translateY(20px); }
+.cta-row { display:flex; gap:14px; flex-wrap:wrap; }
 .btn-p {
   display:inline-flex; align-items:center; gap:8px; padding:13px 30px;
   border-radius:3px; background: var(--a1); color:#fff;
@@ -225,19 +219,16 @@ html, body { background: var(--bg) !important; color: var(--txt); }
   font-weight:800; letter-spacing:-2px; margin-bottom:44px; color: var(--txt);
 }
 
-/* Glass card */
+/* Glass card -> Clean Light Card */
 .gl {
-  background: rgba(255,255,255,0.022); border:1px solid var(--bord);
-  border-radius:14px; backdrop-filter:blur(18px); padding:26px;
+  background: #ffffff; border:1px solid var(--bord);
+  border-radius:14px; padding:26px;
   transition:all 0.38s; position:relative; overflow:hidden;
-}
-.gl::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
 }
 .gl:hover {
   border-color:rgba(110,86,255,0.28); transform:translateY(-3px);
-  box-shadow:0 22px 64px rgba(0,0,0,0.55);
+  box-shadow:0 22px 64px rgba(0,0,0,0.08);
 }
 
 /* Model cards grid */
@@ -264,13 +255,13 @@ html, body { background: var(--bg) !important; color: var(--txt); }
 .mm  { display:flex; justify-content:space-between; margin-bottom:7px; }
 .mml { font-family: var(--fm); font-size:10px; color: var(--muted); }
 .mmv { font-family: var(--fm); font-size:12px; color: var(--txt); }
-.mbar-w { height:2px; background:rgba(255,255,255,0.06); border-radius:1px; margin-top:14px; }
+.mbar-w { height:2px; background:rgba(0,0,0,0.06); border-radius:1px; margin-top:14px; }
 .mbar   { height:100%; border-radius:1px; width:0; transition:width 1.4s cubic-bezier(.25,.46,.45,.94); }
 
 /* Prediction result */
 .pred-box {
-  border-radius:12px; padding:28px; border:1px solid rgba(110,86,255,0.2);
-  margin-top:20px; background:rgba(0,0,0,0.3);
+  border-radius:12px; padding:28px; border:1px solid var(--bord);
+  margin-top:20px; background:#ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.03);
   display:grid; grid-template-columns:1fr 1fr 1fr; gap:28px; align-items:center;
 }
 .pred-lbl {
@@ -279,7 +270,7 @@ html, body { background: var(--bg) !important; color: var(--txt); }
 }
 .pred-big  { font-family: var(--fd); font-size:48px; font-weight:800; letter-spacing:-2.5px; }
 .pred-risk { font-family: var(--fd); font-size:28px; font-weight:800; letter-spacing:-1px; line-height:1.2; }
-.pbar-w    { height:3px; background:rgba(255,255,255,0.05); border-radius:2px; margin-top:22px; }
+.pbar-w    { height:3px; background:rgba(0,0,0,0.05); border-radius:2px; margin-top:22px; }
 .pbar      { height:100%; border-radius:2px; transition:width 1.2s ease; }
 
 /* Page entrance veil */
@@ -293,7 +284,7 @@ html, body { background: var(--bg) !important; color: var(--txt); }
 /* Streamlit widget overrides */
 [data-testid="stSelectbox"] > div > div,
 [data-testid="stNumberInput"] > div > div > input {
-  background: rgba(8,8,18,0.9) !important;
+  background: #ffffff !important;
   border: 1px solid var(--bord) !important;
   border-radius: 6px !important;
   color: var(--txt) !important;
@@ -473,21 +464,21 @@ def load_results():
             return json.load(f)
     return {}
 
-def dark_fig(fig, h=420):
+def light_fig(fig, h=420):
     fig.update_layout(
         height=h,
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#eeeef5", family="DM Mono, monospace"),
+        font=dict(color="#0f172a", family="DM Mono, monospace"),
         margin=dict(t=16, b=16, l=16, r=16),
         legend=dict(
-            bgcolor="rgba(7,7,15,0.85)",
-            bordercolor="rgba(255,255,255,0.07)",
+            bgcolor="rgba(255,255,255,0.85)",
+            bordercolor="rgba(0,0,0,0.07)",
             borderwidth=1
         )
     )
-    fig.update_xaxes(gridcolor="rgba(255,255,255,0.04)", zeroline=False, tickfont=dict(size=10))
-    fig.update_yaxes(gridcolor="rgba(255,255,255,0.04)", zeroline=False, tickfont=dict(size=10))
+    fig.update_xaxes(gridcolor="rgba(0,0,0,0.05)", zeroline=False, tickfont=dict(size=10))
+    fig.update_yaxes(gridcolor="rgba(0,0,0,0.05)", zeroline=False, tickfont=dict(size=10))
     return fig
 
 COLORS      = ["#6e56ff", "#00f5d4", "#ff5f57", "#ffbe0b"]
@@ -556,7 +547,7 @@ else:
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown('<div id="models"></div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="sec" style="border-top:1px solid rgba(255,255,255,0.045)">'
+    '<div class="sec" style="border-top:1px solid var(--bord)">'
     '<div class="sec-tag rv">Experiment Tracking</div>'
     '<div class="sec-h rv">Model Leaderboard</div>',
     unsafe_allow_html=True
@@ -605,27 +596,27 @@ if results:
                 fill="toself",
                 name=mn.replace("_", " "),
                 line=dict(color=COLORS[i % len(COLORS)], width=2),
-                fillcolor="rgba(" + str(rgb[0]) + "," + str(rgb[1]) + "," + str(rgb[2]) + ",0.07)"
+                fillcolor="rgba(" + str(rgb[0]) + "," + str(rgb[1]) + "," + str(rgb[2]) + ",0.15)"
             ))
         fig_r.update_layout(
             polar=dict(
                 bgcolor="rgba(0,0,0,0)",
                 radialaxis=dict(
                     visible=True, range=[0.5, 1.0],
-                    gridcolor="rgba(255,255,255,0.055)",
-                    tickfont=dict(size=9, color="rgba(238,238,245,0.4)"),
+                    gridcolor="rgba(0,0,0,0.08)",
+                    tickfont=dict(size=9, color="rgba(15,23,42,0.6)"),
                     tickcolor="rgba(0,0,0,0)"
                 ),
                 angularaxis=dict(
-                    gridcolor="rgba(255,255,255,0.055)",
-                    tickfont=dict(size=11, color="rgba(238,238,245,0.65)")
+                    gridcolor="rgba(0,0,0,0.08)",
+                    tickfont=dict(size=11, color="rgba(15,23,42,0.8)")
                 )
             ),
             paper_bgcolor="rgba(0,0,0,0)",
             legend=dict(
-                font=dict(color="#eeeef5", size=11, family="DM Mono"),
-                bgcolor="rgba(7,7,15,0.7)",
-                bordercolor="rgba(255,255,255,0.07)", borderwidth=1
+                font=dict(color="#0f172a", size=11, family="DM Mono"),
+                bgcolor="rgba(255,255,255,0.8)",
+                bordercolor="rgba(0,0,0,0.07)", borderwidth=1
             ),
             height=440, margin=dict(t=10, b=10)
         )
@@ -641,11 +632,11 @@ if results:
             x=aucs, y=names, orientation="h",
             marker_color=COLORS[:len(order)],
             error_x=dict(type="data", array=stds,
-                         color="rgba(255,255,255,0.25)", thickness=1.2, width=4),
+                         color="rgba(0,0,0,0.25)", thickness=1.2, width=4),
             text=[f"{a:.4f}" for a in aucs], textposition="outside",
-            textfont=dict(size=10, color="rgba(238,238,245,0.55)", family="DM Mono")
+            textfont=dict(size=10, color="rgba(15,23,42,0.6)", family="DM Mono")
         ))
-        fig_b = dark_fig(fig_b, 420)
+        fig_b = light_fig(fig_b, 420)
         fig_b.update_xaxes(range=[0.80, 0.87])
         fig_b.update_yaxes(autorange="reversed")
         st.markdown('<div class="gl rv">', unsafe_allow_html=True)
@@ -659,7 +650,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown('<div id="predict"></div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="sec" style="border-top:1px solid rgba(255,255,255,0.045)">'
+    '<div class="sec" style="border-top:1px solid var(--bord)">'
     '<div class="sec-tag rv">Live Inference</div>'
     '<div class="sec-h  rv">Single Prediction</div>',
     unsafe_allow_html=True
@@ -772,21 +763,21 @@ if results:
                 number={"suffix": "%", "font": {"size": 34, "color": color, "family": "Syne"}},
                 gauge={
                     "axis": {"range": [0, 100],
-                             "tickcolor": "rgba(255,255,255,0.15)",
-                             "tickfont": {"size": 9, "color": "rgba(255,255,255,0.3)"}},
+                             "tickcolor": "rgba(0,0,0,0.15)",
+                             "tickfont": {"size": 9, "color": "rgba(15,23,42,0.5)"}},
                     "bar": {"color": color, "thickness": 0.45},
                     "bgcolor": "rgba(0,0,0,0)", "borderwidth": 0,
                     "steps": [
-                        {"range": [0, 40],   "color": "rgba(0,245,212,0.07)"},
-                        {"range": [40, 70],  "color": "rgba(255,190,11,0.07)"},
-                        {"range": [70, 100], "color": "rgba(255,95,87,0.07)"},
+                        {"range": [0, 40],   "color": "rgba(0,245,212,0.1)"},
+                        {"range": [40, 70],  "color": "rgba(255,190,11,0.1)"},
+                        {"range": [70, 100], "color": "rgba(255,95,87,0.1)"},
                     ],
-                    "threshold": {"line": {"color": "rgba(255,255,255,0.25)", "width": 2}, "value": 50}
+                    "threshold": {"line": {"color": "rgba(0,0,0,0.85)", "width": 2}, "value": 50}
                 }
             ))
             fig_g.update_layout(
                 height=250, paper_bgcolor="rgba(0,0,0,0)",
-                font=dict(color="#eeeef5"), margin=dict(t=20, b=10, l=30, r=30)
+                font=dict(color="#0f172a"), margin=dict(t=20, b=10, l=30, r=30)
             )
             st.plotly_chart(fig_g, use_container_width=True)
 
@@ -797,7 +788,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown('<div id="shap"></div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="sec" style="border-top:1px solid rgba(255,255,255,0.045)">'
+    '<div class="sec" style="border-top:1px solid var(--bord)">'
     '<div class="sec-tag rv">Explainable AI</div>'
     '<div class="sec-h  rv">SHAP Feature Analysis</div>',
     unsafe_allow_html=True
@@ -834,9 +825,9 @@ else:
                     line=dict(width=0)
                 ),
                 text=[f"{v:.4f}" for v in top20.values], textposition="outside",
-                textfont=dict(size=9, color="rgba(238,238,245,0.5)", family="DM Mono")
+                textfont=dict(size=9, color="rgba(15,23,42,0.6)", family="DM Mono")
             ))
-            fig_s = dark_fig(fig_s, 560)
+            fig_s = light_fig(fig_s, 560)
             st.markdown('<div class="gl rv">', unsafe_allow_html=True)
             st.plotly_chart(fig_s, use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
@@ -856,19 +847,18 @@ st.markdown('</div>', unsafe_allow_html=True)
 #  FOOTER
 # ─────────────────────────────────────────────────────────────────────────────
 st.markdown("""
-<div style="border-top:1px solid rgba(255,255,255,0.045);
+<div style="border-top:1px solid var(--bord);
   padding:36px 60px; display:flex; justify-content:space-between; align-items:center">
   <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;
-    background:linear-gradient(135deg,#6e56ff,#00f5d4);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent">
+    color: var(--txt);">
     &#x2B21; ChurnFlow
   </div>
   <div style="font-family:'DM Mono',monospace;font-size:10px;
-    color:rgba(238,238,245,0.28);letter-spacing:1.2px">
+    color:rgba(15,23,42,0.4);letter-spacing:1.2px">
     BUILT BY NIKHIL YADAV &middot; BIT DURG &middot; CSE DATA SCIENCE
   </div>
   <div style="font-family:'DM Mono',monospace;font-size:10px;
-    color:rgba(238,238,245,0.28);letter-spacing:1px">
+    color:rgba(15,23,42,0.4);letter-spacing:1px">
     MLflow 2.12.1 &middot; SHAP 0.45 &middot; Streamlit 1.33
   </div>
 </div>
