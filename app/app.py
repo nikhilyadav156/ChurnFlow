@@ -60,8 +60,10 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background: #FFFFFF;
-    border-right: 1px solid #E5E7EB;
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
 [data-testid="stSidebar"] * { color: #4B5563 !important; }
 [data-testid="stSidebar"] .stRadio label { 
@@ -79,11 +81,13 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
 /* ── Metric cards ── */
 [data-testid="metric-container"] {
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px;
     padding: 20px 24px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 [data-testid="metric-container"]:hover {
@@ -126,10 +130,12 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
 /* ── Cards ── */
 .glass-card {
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px; padding: 24px; margin: 16px 0;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 .glass-card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
@@ -270,14 +276,7 @@ with st.sidebar:
 # PAGE — OVERVIEW
 # ═════════════════════════════════════════════════════════════════════════════
 if "Overview" in page:
-    # Spline 3D Embed
-    components.html(
-        """
-        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.51/build/spline-viewer.js"></script>
-        <spline-viewer url="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" style="width: 100%; height: 250px;"></spline-viewer>
-        """, height=250
-    )
-    st.markdown("## 🔮 Customer Churn Prediction Pipeline")
+    st.markdown("## 🔄 Customer Churn Prediction Pipeline")
     st.markdown("*End-to-end ML pipeline with MLflow tracking, SHAP explainability & model registry*")
     st.divider()
 
@@ -308,12 +307,14 @@ if "Overview" in page:
                 body {{ font-family: 'Inter', sans-serif; margin: 0; padding: 10px 0; background: transparent; }}
                 .kpi-container {{ display: flex; gap: 16px; justify-content: space-between; overflow: hidden; height: 120px; }}
                 .kpi-card {{
-                    background: #FFFFFF;
-                    border: 1px solid #E5E7EB;
+                    background: rgba(255, 255, 255, 0.15);
+                    backdrop-filter: blur(20px);
+                    -webkit-backdrop-filter: blur(20px);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
                     border-radius: 12px;
                     padding: 20px;
                     width: 100%;
-                    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                     opacity: 0;
                     transform: translateY(30px);
                 }}
@@ -382,9 +383,9 @@ if "Overview" in page:
                 x=[x], y=[y],
                 mode="markers+text",
                 marker=dict(size=45, color=color, symbol="square", line=dict(color="#FFFFFF", width=2)),
-                text=[f"{icon}<br>{name}"],
+                text=[f"<b>{icon}<br>{name}</b>"],
                 textposition="top center" if y == 1 else "bottom center",
-                textfont=dict(size=11, color="#111827", weight="bold"),
+                textfont=dict(size=11, color="#111827"),
             ))
             # Draw arrows to next step
             if i < len(steps) - 1:
