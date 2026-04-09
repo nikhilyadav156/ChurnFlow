@@ -479,8 +479,8 @@ def light_fig(fig, h=420):
             borderwidth=1
         )
     )
-    fig.update_xaxes(gridcolor="rgba(0,0,0,0.05)", zeroline=False, tickfont=dict(size=10))
-    fig.update_yaxes(gridcolor="rgba(0,0,0,0.05)", zeroline=False, tickfont=dict(size=10))
+    fig.update_xaxes(gridcolor="rgba(0,0,0,0.05)", zeroline=False, tickfont=dict(size=10, color="#0f172a"))
+    fig.update_yaxes(gridcolor="rgba(0,0,0,0.05)", zeroline=False, tickfont=dict(size=10, color="#0f172a"))
     return fig
 
 COLORS      = ["#6e56ff", "#00f5d4", "#ff5f57", "#ffbe0b"]
@@ -668,30 +668,25 @@ if results:
     c1, c2, c3 = st.columns(3)
 
     with c1:
-        st.markdown('<div class="gl rv">', unsafe_allow_html=True)
-        st.markdown('<p style="font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px">ACCOUNT INFO</p>', unsafe_allow_html=True)
+        st.markdown('<p style="font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;margin-top:10px">ACCOUNT INFO</p>', unsafe_allow_html=True)
         gender    = st.selectbox("Gender",          ["Male", "Female"])
         senior    = st.selectbox("Senior Citizen",  ["No", "Yes"])
         partner   = st.selectbox("Partner",         ["Yes", "No"])
         depend    = st.selectbox("Dependents",      ["No", "Yes"])
         tenure    = st.slider("Tenure (months)",    0, 72, 12)
         contract  = st.selectbox("Contract",        ["Month-to-month", "One year", "Two year"])
-        st.markdown('</div>', unsafe_allow_html=True)
 
     with c2:
-        st.markdown('<div class="gl rv">', unsafe_allow_html=True)
-        st.markdown('<p style="font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px">SERVICES</p>', unsafe_allow_html=True)
+        st.markdown('<p style="font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;margin-top:10px">SERVICES</p>', unsafe_allow_html=True)
         phone    = st.selectbox("Phone Service",     ["Yes", "No"])
         multi_l  = st.selectbox("Multiple Lines",    ["No", "Yes"])
         internet = st.selectbox("Internet Service",  ["Fiber optic", "DSL", "No"])
         online_s = st.selectbox("Online Security",   ["No", "Yes"])
         online_b = st.selectbox("Online Backup",     ["No", "Yes"])
         device   = st.selectbox("Device Protection", ["No", "Yes"])
-        st.markdown('</div>', unsafe_allow_html=True)
 
     with c3:
-        st.markdown('<div class="gl rv">', unsafe_allow_html=True)
-        st.markdown('<p style="font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px">BILLING</p>', unsafe_allow_html=True)
+        st.markdown('<p style="font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;margin-top:10px">BILLING</p>', unsafe_allow_html=True)
         tech_s    = st.selectbox("Tech Support",      ["No", "Yes"])
         stv       = st.selectbox("Streaming TV",      ["No", "Yes"])
         smov      = st.selectbox("Streaming Movies",  ["No", "Yes"])
@@ -702,7 +697,6 @@ if results:
         ])
         monthly_c = st.number_input("Monthly Charges ($)", 18.0, 120.0, 65.0, 0.5)
         total_c   = st.number_input("Total Charges ($)", 0.0, 9000.0, float(monthly_c * tenure), 1.0)
-        st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
