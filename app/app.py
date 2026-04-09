@@ -25,6 +25,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import joblib
+import requests
+from streamlit_lottie import st_lottie
+import streamlit.components.v1 as components
 
 warnings.filterwarnings("ignore")
 
@@ -152,6 +155,21 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 /* ── Headings ── */
 h1, h2, h3, h4 { color: #111827 !important; font-weight: 700 !important; letter-spacing: -0.5px; }
 hr { border-color: #E5E7EB !important; margin: 24px 0; }
+
+/* ── Advanced Animated Entrances (GSAP-like) ── */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+[data-testid="metric-container"], .glass-card, [data-testid="stDataFrame"], .stPlotlyChart {
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+[data-testid="metric-container"]:nth-child(1) { animation-delay: 0.1s; }
+[data-testid="metric-container"]:nth-child(2) { animation-delay: 0.2s; }
+[data-testid="metric-container"]:nth-child(3) { animation-delay: 0.3s; }
+[data-testid="metric-container"]:nth-child(4) { animation-delay: 0.4s; }
+[data-testid="metric-container"]:nth-child(5) { animation-delay: 0.5s; }
+html { scroll-behavior: smooth; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -166,6 +184,14 @@ def load_model(name: str):
 def load_preprocessor():
     path = MODEL_DIR / "preprocessor.joblib"
     return joblib.load(path) if path.exists() else None
+
+
+@st.cache_data
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
 
 
 @st.cache_data
@@ -240,6 +266,13 @@ with st.sidebar:
 # PAGE — OVERVIEW
 # ═════════════════════════════════════════════════════════════════════════════
 if "Overview" in page:
+    # Spline 3D Embed
+    components.html(
+        """
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.51/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" style="width: 100%; height: 250px;"></spline-viewer>
+        """, height=250
+    )
     st.markdown("## 🔮 Customer Churn Prediction Pipeline")
     st.markdown("*End-to-end ML pipeline with MLflow tracking, SHAP explainability & model registry*")
     st.divider()
@@ -484,7 +517,13 @@ elif "Single Prediction" in page:
 # ═════════════════════════════════════════════════════════════════════════════
 elif "Batch Prediction" in page:
     st.markdown("## 📊 Batch Prediction")
-    st.markdown("Upload a CSV of customers (same schema as Telco dataset) to predict churn at scale.")
+    c1, c2 = st.columns([4, 1])
+    with c1:
+        st.markdown("Upload a CSV of customers (same schema as Telco dataset) to predict churn at scale.")
+    with c2:
+        lottie_file = load_lottieurl("https://lottie.host/80a221f1-332e-4375-9276-200742d4a77e/S2oWkO6aOo.json")
+        if lottie_file:
+            st_lottie(lottie_file, height=80, key="batch_lottie")
     st.divider()
 
     preprocessor = load_preprocessor()
