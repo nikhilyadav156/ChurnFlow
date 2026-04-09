@@ -51,76 +51,120 @@ st.set_page_config(
 st.markdown("""
 <style>
 /* ── Global ── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+html, body, [class*="css"] { font-family: 'Plus Jakarta Sans', sans-serif; }
+.stApp { background-color: #0B0E14; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    background: rgba(15, 20, 25, 0.85);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255,255,255,0.05);
 }
-[data-testid="stSidebar"] * { color: #e0e0ff !important; }
+[data-testid="stSidebar"] * { color: #8C9BB4 !important; }
 [data-testid="stSidebar"] .stRadio label { 
-    font-size: 15px; font-weight: 500; padding: 6px 0;
+    font-size: 16px; font-weight: 500; padding: 10px 12px;
+    border-radius: 8px; transition: all 0.3s ease;
+}
+[data-testid="stSidebar"] .stRadio label:hover {
+    background: rgba(0, 242, 254, 0.1);
+    color: #ffffff !important; transform: translateX(5px);
+}
+[data-testid="stSidebar"] .stRadio div[role="radiogroup"] > label[data-checked="true"] {
+    background: linear-gradient(90deg, rgba(0, 242, 254, 0.15) 0%, rgba(79, 172, 254, 0.05) 100%);
+    border-left: 4px solid #00F2FE; color: #ffffff !important;
 }
 
 /* ── Metric cards ── */
 [data-testid="metric-container"] {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border: 1px solid rgba(100,120,255,0.25);
-    border-radius: 14px;
-    padding: 18px 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    background: rgba(21, 26, 36, 0.6);
+    border: 1px solid rgba(79, 172, 254, 0.15);
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-[data-testid="metric-container"] label { color: #a0a8d0 !important; font-size: 13px !important; }
+[data-testid="metric-container"]:hover {
+    transform: translateY(-6px);
+    border-color: #00F2FE;
+    box-shadow: 0 10px 30px rgba(0, 242, 254, 0.2);
+}
+[data-testid="metric-container"] label { color: #8C9BB4 !important; font-size: 14px !important; letter-spacing: 0.5px; text-transform: uppercase; }
 [data-testid="metric-container"] [data-testid="stMetricValue"] {
-    color: #7c9eff !important; font-size: 32px !important; font-weight: 700 !important;
+    font-size: 36px !important; font-weight: 800 !important;
+    background: -webkit-linear-gradient(45deg, #00F2FE, #4FACFE);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 
 /* ── Tabs ── */
-.stTabs [data-baseweb="tab-list"] { gap: 8px; background: transparent; }
+.stTabs [data-baseweb="tab-list"] { gap: 12px; background: transparent; }
 .stTabs [data-baseweb="tab"] {
-    background: #1a1a2e; border-radius: 10px; color: #a0a8d0;
-    padding: 8px 20px; border: 1px solid rgba(100,120,255,0.2);
-    font-weight: 500;
+    background: rgba(21, 26, 36, 0.5); border-radius: 12px; color: #8C9BB4;
+    padding: 10px 24px; border: 1px solid rgba(255,255,255,0.05);
+    font-weight: 600; font-size: 15px; transition: all 0.3s ease;
+}
+.stTabs [data-baseweb="tab"]:hover {
+    background: rgba(79, 172, 254, 0.1); color: white; border-color: rgba(79, 172, 254, 0.3);
 }
 .stTabs [aria-selected="true"] {
-    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%) !important;
     color: white !important; border-color: transparent !important;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
 }
 
 /* ── Buttons ── */
 .stButton > button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white; border: none; border-radius: 10px;
-    padding: 10px 28px; font-weight: 600; font-size: 14px;
-    transition: all 0.3s;
+    background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
+    color: white; border: none; border-radius: 12px;
+    padding: 12px 32px; font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
+    transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
 }
-.stButton > button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102,126,234,0.4); }
+.stButton > button:hover { 
+    transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4); 
+    background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%);
+}
 
-/* ── Cards ── */
+/* ── Glass Cards ── */
 .glass-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px; padding: 24px; margin: 12px 0;
-    backdrop-filter: blur(10px);
+    background: rgba(21, 26, 36, 0.4);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 16px; padding: 28px; margin: 16px 0;
+    backdrop-filter: blur(16px);
+    transition: all 0.3s ease;
 }
+.glass-card:hover { border-color: rgba(0, 242, 254, 0.3); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
 
 /* ── Churn badges ── */
 .churn-yes { 
-    background: linear-gradient(135deg,#ff416c,#ff4b2b);
-    color:white; padding:10px 24px; border-radius:30px;
-    font-weight:700; font-size:18px; display:inline-block;
+    background: linear-gradient(135deg, #FF0844 0%, #FFB199 100%);
+    color: white; padding: 12px 32px; border-radius: 50px;
+    font-weight: 800; font-size: 20px; display: inline-block;
+    box-shadow: 0 4px 20px rgba(255, 8, 68, 0.4);
+    animation: pulse-red 2s infinite;
 }
 .churn-no { 
-    background: linear-gradient(135deg,#11998e,#38ef7d);
-    color:white; padding:10px 24px; border-radius:30px;
-    font-weight:700; font-size:18px; display:inline-block;
+    background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%);
+    color: white; padding: 12px 32px; border-radius: 50px;
+    font-weight: 800; font-size: 20px; display: inline-block;
+    box-shadow: 0 4px 20px rgba(0, 180, 219, 0.4);
+}
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 8, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 8, 68, 0); }
 }
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #0f0c29; }
-::-webkit-scrollbar-thumb { background: #667eea; border-radius: 3px; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(79, 172, 254, 0.3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 242, 254, 0.8); }
+
+/* ── Typography fixes ── */
+h1, h2, h3, h4 { color: #f0f4f8 !important; font-weight: 700 !important; letter-spacing: -0.5px; }
+hr { border-color: rgba(255,255,255,0.05) !important; margin: 24px 0; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -193,17 +237,17 @@ with st.sidebar:
         best = max(results, key=lambda k: results[k]["cv_auc_mean"])
         st.markdown(f"""
         <div style='text-align:center'>
-            <div style='font-size:11px; color:#8888cc'>🏆 Best Model</div>
-            <div style='font-size:14px; font-weight:700; color:#7c9eff'>
+            <div style='font-size:12px; color:#8C9BB4; letter-spacing: 0.5px;'>🏆 BEST MODEL</div>
+            <div style='font-size:16px; font-weight:700; background: -webkit-linear-gradient(45deg, #00F2FE, #4FACFE); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>
                 {best.replace("_"," ")}
             </div>
-            <div style='font-size:20px; font-weight:700; color:#38ef7d; margin-top:4px'>
+            <div style='font-size:22px; font-weight:800; color:#00B4DB; margin-top:4px'>
                 AUC {results[best]["cv_auc_mean"]:.4f}
             </div>
         </div>
         """, unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<div style='font-size:11px; color:#666; text-align:center'>Built by Nikhil Yadav · BIT Durg</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:12px; color:#4a5568; text-align:center'>Built by Nikhil Yadav · BIT Durg</div>", unsafe_allow_html=True)
 
 # ═════════════════════════════════════════════════════════════════════════════
 # PAGE — OVERVIEW
@@ -235,15 +279,15 @@ if "Overview" in page:
 
     with col_diag:
         steps = [
-            ("📥", "Raw Data",       "#667eea"),
-            ("🧹", "Preprocessing",  "#764ba2"),
-            ("🗄️", "Feature Store",  "#f64f59"),
-            ("⚖️", "SMOTE Balance",  "#c471ed"),
-            ("🤖", "4 Models",       "#12c2e9"),
-            ("📊", "MLflow Autolog", "#f64f59"),
-            ("🧠", "SHAP Reports",   "#667eea"),
-            ("🏭", "Model Registry", "#764ba2"),
-            ("🖥️", "Streamlit UI",   "#11998e"),
+            ("📥", "Raw Data",       "#00F2FE"),
+            ("🧹", "Preprocessing",  "#00B4DB"),
+            ("🗄️", "Feature Store",  "#4FACFE"),
+            ("⚖️", "SMOTE Balance",  "#0083B0"),
+            ("🤖", "4 Models",       "#00F2FE"),
+            ("📊", "MLflow Autolog", "#4FACFE"),
+            ("🧠", "SHAP Reports",   "#00B4DB"),
+            ("🏭", "Model Registry", "#0083B0"),
+            ("🖥️", "Streamlit UI",   "#00F2FE"),
         ]
         fig = go.Figure()
         for i, (icon, name, color) in enumerate(steps):
@@ -272,7 +316,7 @@ if "Overview" in page:
     with col_stack:
         st.markdown("""
         <div class='glass-card'>
-            <b style='color:#7c9eff'>Tech Stack</b><br><br>
+            <b style='color:#00F2FE; font-size:16px; letter-spacing:0.5px;'>TECH STACK</b><br><br>
             🐍 Python · Pandas · NumPy<br>
             🤖 Scikit-learn · XGBoost · LightGBM<br>
             ⚖️ imbalanced-learn (SMOTE)<br>
@@ -288,7 +332,7 @@ if "Overview" in page:
         st.markdown("### 📊 Quick Model Comparison")
         df_r = results_dataframe(results)
         fig2 = make_subplots(rows=1, cols=3, subplot_titles=["AUC-ROC", "F1 Score", "Accuracy"])
-        colors = ["#667eea", "#764ba2", "#f64f59", "#11998e"]
+        colors = ["#00F2FE", "#4FACFE", "#00B4DB", "#0083B0"]
         for i, metric in enumerate(["CV AUC", "CV F1", "CV Accuracy"]):
             fig2.add_trace(go.Bar(
                 x=df_r["Model"], y=df_r[metric],
@@ -432,11 +476,11 @@ elif "Single Prediction" in page:
                 number={"suffix": "%", "font": {"color": "white", "size": 32}},
                 gauge={
                     "axis": {"range": [0, 100], "tickcolor": "white"},
-                    "bar":  {"color": "#ff416c" if prob >= 0.5 else "#11998e"},
+                    "bar":  {"color": "#FF0844" if prob >= 0.5 else "#00B4DB"},
                     "steps": [
-                        {"range": [0, 30],  "color": "rgba(17,153,110,0.2)"},
-                        {"range": [30, 60], "color": "rgba(255,200,0,0.2)"},
-                        {"range": [60, 100],"color": "rgba(255,65,108,0.2)"},
+                        {"range": [0, 30],  "color": "rgba(0,180,219,0.2)"},
+                        {"range": [30, 60], "color": "rgba(250,208,44,0.2)"},
+                        {"range": [60, 100],"color": "rgba(255,8,68,0.2)"},
                     ],
                     "threshold": {"line": {"color": "white", "width": 3}, "value": 50}
                 }
@@ -514,14 +558,14 @@ elif "Batch Prediction" in page:
                 values=risk_counts.values,
                 names=risk_counts.index,
                 color=risk_counts.index,
-                color_discrete_map={"Low":"#11998e","Medium":"#f9ca24","High":"#ff416c"},
+                color_discrete_map={"Low":"#00B4DB","Medium":"#FAD02C","High":"#FF0844"},
                 title="Churn Risk Distribution"
             )
             fig_pie.update_layout(paper_bgcolor="rgba(0,0,0,0)", font=dict(color="white"))
 
             fig_hist = px.histogram(
                 df_out, x="Churn_Probability", nbins=40,
-                color_discrete_sequence=["#667eea"],
+                color_discrete_sequence=["#00F2FE"],
                 title="Churn Probability Distribution"
             )
             fig_hist.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
@@ -575,19 +619,19 @@ elif "Model Comparison" in page:
 
         metrics = ["CV AUC", "CV F1", "CV Accuracy", "Precision", "Recall"]
         fig = go.Figure()
-        colors = ["#667eea", "#764ba2", "#f64f59", "#11998e"]
+        colors = ["#00F2FE", "#4FACFE", "#00B4DB", "#0083B0"]
 
         rgba_map = {
-            "#667eea": "rgba(102,126,234,0.15)",
-            "#764ba2": "rgba(118,75,162,0.15)",
-            "#f64f59": "rgba(246,79,89,0.15)",
-            "#11998e": "rgba(17,153,142,0.15)",
+            "#00F2FE": "rgba(0,242,254,0.15)",
+            "#4FACFE": "rgba(79,172,254,0.15)",
+            "#00B4DB": "rgba(0,180,219,0.15)",
+            "#0083B0": "rgba(0,131,176,0.15)",
         }
 
         for i, row in df_r.iterrows():
             # Convert hex colors to rgba for Plotly compatibility
             hex_color   = colors[i % len(colors)]
-            fill_color  = rgba_map.get(hex_color, "rgba(102,126,234,0.15)")
+            fill_color  = rgba_map.get(hex_color, "rgba(0,242,254,0.15)")
 
             fig.add_trace(go.Scatterpolar(
                 r=[row[m] for m in metrics],
@@ -679,7 +723,7 @@ elif "SHAP" in page:
                     labels={"x": "Mean |SHAP Value|", "y": "Feature"},
                     title=f"Top 20 Features — {model_choice}",
                     color=mean_abs.values,
-                    color_continuous_scale="Purples"
+                    color_continuous_scale="Teal"
                 )
                 fig_shap.update_layout(
                     height=550, paper_bgcolor="rgba(0,0,0,0)",
