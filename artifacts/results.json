@@ -1,0 +1,58 @@
+{
+  "Logistic_Regression": {
+    "run_id": "7a752681b3d2404797983268673498f3",
+    "cv_accuracy_mean": 0.7489684818375378,
+    "cv_accuracy_std": 0.008363087146389045,
+    "cv_f1_mean": 0.6267732778808687,
+    "cv_f1_std": 0.013713622543501724,
+    "cv_auc_mean": 0.8476300160921155,
+    "cv_auc_std": 0.01134396611163628,
+    "cv_precision_mean": 0.5175893307215473,
+    "cv_recall_mean": 0.7945219423377443,
+    "train_accuracy": 0.7599034502342752,
+    "train_f1": 0.6395224898742272,
+    "train_auc": 0.8513215747420477
+  },
+  "Random_Forest": {
+    "run_id": "e5013bf6180d406783f1fbe5fb3f8cea",
+    "cv_accuracy_mean": 0.7675685729724498,
+    "cv_accuracy_std": 0.010898165767114876,
+    "cv_f1_mean": 0.6290640031276353,
+    "cv_f1_std": 0.016755396981152488,
+    "cv_auc_mean": 0.8454066263721105,
+    "cv_auc_std": 0.011563232401999983,
+    "cv_precision_mean": 0.5456635600471499,
+    "cv_recall_mean": 0.7426330805293114,
+    "train_accuracy": 0.8216669033082493,
+    "train_f1": 0.7025106584557081,
+    "train_auc": 0.9027860419933142
+  },
+  "XGBoost": {
+    "run_id": "ecb5d4412c4d4734abbd290f24df0e1e",
+    "cv_accuracy_mean": 0.7631693980256792,
+    "cv_accuracy_std": 0.008760183851577258,
+    "cv_f1_mean": 0.6121509432304824,
+    "cv_f1_std": 0.010906020920875404,
+    "cv_auc_mean": 0.831697611309945,
+    "cv_auc_std": 0.010074299339909245,
+    "cv_precision_mean": 0.5416171489924575,
+    "cv_recall_mean": 0.7041246720477126,
+    "train_accuracy": 0.8683799517251172,
+    "train_f1": 0.797730744054113,
+    "train_auc": 0.9588563056464359
+  },
+  "LightGBM": {
+    "run_id": "f3482ef268284a8599e15585f0a5a3e0",
+    "cv_accuracy_mean": 0.7627414470288405,
+    "cv_accuracy_std": 0.011666108612489557,
+    "cv_f1_mean": 0.615248553029383,
+    "cv_f1_std": 0.017397787817886676,
+    "cv_auc_mean": 0.8338184702091571,
+    "cv_auc_std": 0.010553410182611496,
+    "cv_precision_mean": 0.540254021314959,
+    "cv_recall_mean": 0.7148141245286806,
+    "train_accuracy": 0.8831463864830328,
+    "train_f1": 0.777867746288799,
+    "train_auc": 0.9526255180086132
+  }
+}
